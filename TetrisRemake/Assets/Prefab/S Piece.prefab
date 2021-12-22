@@ -377,4 +377,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationPt: {x: 0, y: 0, z: 0}
   fallTime: 1
-  DAS: 0.5
+  DAS: 0.3

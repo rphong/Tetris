@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PieceMovement : MonoBehaviour
 {
@@ -91,6 +92,14 @@ public class PieceMovement : MonoBehaviour
                 transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), 90);
 
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), 90);
+            if (!validMove())
+                transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), -90);
+
+        }
     }
     
     void addToGrid()
@@ -107,14 +116,33 @@ public class PieceMovement : MonoBehaviour
 
     void checkForLines()
     {
+        int linesCleared = 0;
         for(int row = height-1; row >= 0; row--)
         {
             if(hasLine(row))
             {
+                linesCleared++;
                 deleteLine(row);
                 moveDown(row);
             }
         }
+
+        switch (linesCleared)
+        {
+            case 1:
+                scoreScript.scoreVal += 40;
+                break;
+            case 2:
+                scoreScript.scoreVal += 100;
+                break;
+            case 3:
+                scoreScript.scoreVal += 300;
+                break;
+            case 4:
+                scoreScript.scoreVal += 1200;
+                break;
+        }
+                
     }
 
     bool hasLine(int row)
