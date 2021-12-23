@@ -8,16 +8,19 @@ public class PieceMovement : MonoBehaviour
     public Vector3 rotationPt;
     private float prevTimeY;
     private float prevTimeX;
+    private float prevTimeARR;
     public float fallTime = 1f;
     public float DAS = .5f;
+    public float ARR = 2f;
     public static int width = 10;
-    public static int height = 20;
+    public static int height = 21;
     public static Transform[,] grid = new Transform[width, height];
+    bool gameStatus = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 12;
+        Application.targetFrameRate = 30;
     }
 
     // Update is called once per frame
@@ -31,16 +34,27 @@ public class PieceMovement : MonoBehaviour
             if (!validMove())
                 transform.position += new Vector3(1, 0, 0);
             else
+            {
                 prevTimeX = Time.time;
+                FindObjectOfType<AudioManager>().Play("Move");
+            }
         }
 
         else if (Input.GetKey(KeyCode.LeftArrow)) //If key is still held down keep moving left
         {
             if(Time.time - prevTimeX > DAS)
             {
-                transform.position += new Vector3(-1, 0, 0);
-                if (!validMove())
-                    transform.position += new Vector3(1, 0, 0);
+                if (Time.time - prevTimeARR > ARR)
+                {
+                    transform.position += new Vector3(-1, 0, 0);
+                    if (!validMove())
+                        transform.position += new Vector3(1, 0, 0);
+                    else
+                    {
+                        FindObjectOfType<AudioManager>().Play("Move");
+                        prevTimeARR = Time.time;
+                    }
+                }
             }
         }
 
@@ -52,16 +66,27 @@ public class PieceMovement : MonoBehaviour
             if (!validMove())
                 transform.position += new Vector3(-1, 0, 0);
             else
+            {
                 prevTimeX = Time.time;
+                FindObjectOfType<AudioManager>().Play("Move");
+            }
         }
 
         else if (Input.GetKey(KeyCode.RightArrow)) //If key is still held down keep moving right
         {
             if (Time.time - prevTimeX > DAS)
             {
-                transform.position += new Vector3(1, 0, 0);
-                if (!validMove())
-                    transform.position += new Vector3(-1, 0, 0);
+                if (Time.time - prevTimeARR > ARR)
+                {
+                    transform.position += new Vector3(1, 0, 0);
+                    if (!validMove())
+                        transform.position += new Vector3(-1, 0, 0);
+                    else
+                    {
+                        FindObjectOfType<AudioManager>().Play("Move");
+                        prevTimeARR = Time.time;
+                    }
+                }
             }
         }
 
@@ -75,10 +100,21 @@ public class PieceMovement : MonoBehaviour
             if (!validMove())
             {
                 transform.position += new Vector3(0, 1, 0);
+                FindObjectOfType<AudioManager>().Play("HitBottom");
                 addToGrid();
                 checkForLines();
-                this.enabled = false;
-                FindObjectOfType<Spawner>().newBlock();
+                if (grid[5, 19] != null && gameStatus)
+                {
+                    FindObjectOfType<GameManager>().EndGame();
+                    Debug.Log("hello");
+                    gameStatus = false; 
+                    this.enabled = false;
+                }
+                else
+                {
+                    this.enabled = false;
+                    FindObjectOfType<Spawner>().newBlock();
+                }
             }
             prevTimeY = Time.time;
         }
@@ -90,6 +126,8 @@ public class PieceMovement : MonoBehaviour
             transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), -90);
             if(!validMove())
                 transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), 90);
+            else
+                FindObjectOfType<AudioManager>().Play("Rotate");
 
         }
 
@@ -98,7 +136,8 @@ public class PieceMovement : MonoBehaviour
             transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), 90);
             if (!validMove())
                 transform.RotateAround(transform.TransformPoint(rotationPt), new Vector3(0, 0, 1), -90);
-
+            else
+                FindObjectOfType<AudioManager>().Play("Rotate");
         }
     }
     
@@ -131,15 +170,19 @@ public class PieceMovement : MonoBehaviour
         {
             case 1:
                 scoreScript.scoreVal += 40;
+                FindObjectOfType<AudioManager>().Play("LineClear");
                 break;
             case 2:
                 scoreScript.scoreVal += 100;
+                FindObjectOfType<AudioManager>().Play("LineClear");
                 break;
             case 3:
                 scoreScript.scoreVal += 300;
+                FindObjectOfType<AudioManager>().Play("LineClear");
                 break;
             case 4:
                 scoreScript.scoreVal += 1200;
+                FindObjectOfType<AudioManager>().Play("Tetris");
                 break;
         }
                 

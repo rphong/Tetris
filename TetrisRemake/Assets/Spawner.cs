@@ -5,15 +5,22 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject[] blocks;
-    // Start is called before the first frame update
+
+    AudioSource music;
     void Start()
     {
         newBlock();
+        music = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     public void newBlock()
     {
         Instantiate(blocks[Random.Range(0, blocks.Length)], transform.position, Quaternion.identity);
+    }
+
+    public void endMusic()
+    {
+        music.Stop();
     }
 }

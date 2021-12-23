@@ -211,8 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec39cf2324eb4e4ba9307f409b85a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationPt: {x: 0, y: 0, z: 0}
   fallTime: 1
-  DAS: 0.6
+  DAS: 0.5
+  ARR: 0.1
 --- !u!1 &5284001948740521855
 GameObject:
   m_ObjectHideFlags: 0

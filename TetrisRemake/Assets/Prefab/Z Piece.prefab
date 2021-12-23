@@ -214,6 +214,7 @@ MonoBehaviour:
   rotationPt: {x: 0, y: 0, z: 0}
   fallTime: 1
   DAS: 0.5
+  ARR: 0.1
 --- !u!1 &4270405017935834104
 GameObject:
   m_ObjectHideFlags: 0
