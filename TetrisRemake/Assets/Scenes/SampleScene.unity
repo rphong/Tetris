@@ -2402,6 +2402,16 @@ MonoBehaviour:
     volume: 0.5
     pitch: 0
     source: {fileID: 0}
+  - name: WinnerBGM
+    clip: {fileID: 8300000, guid: e95b47746780ab64f9882f464862505d, type: 3}
+    volume: 0.5
+    pitch: 0
+    source: {fileID: 0}
+  - name: GameEndBGM
+    clip: {fileID: 8300000, guid: 3138df157d5da2942a6940b7445df1df, type: 3}
+    volume: 0.5
+    pitch: 0
+    source: {fileID: 0}
 --- !u!4 &314544710
 Transform:
   m_ObjectHideFlags: 0
@@ -2451,7 +2461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 962, y: 451}
+  m_AnchoredPosition: {x: 946.0813, y: 244.05664}
   m_SizeDelta: {x: 688.05, y: 345.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &435630978

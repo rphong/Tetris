@@ -20,8 +20,11 @@ public class GameManager : MonoBehaviour
             StartCoroutine(WinSound());
         }
 
-
-        GameObject endText = GameObject.Instantiate(endGameText, new Vector3(5, 12, 2), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform); ;
+        else
+        {
+            StartCoroutine(DefaultEnd());
+        }
+        GameObject endText = GameObject.Instantiate(endGameText, new Vector3(-7f, 12, 2), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform); ;
         
 
     }
@@ -30,7 +33,17 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         FindObjectOfType<AudioManager>().Play("Winner");
-        GameObject winText = GameObject.Instantiate(endGameText, new Vector3(3.5f, 7, 2), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
+        GameObject winText = GameObject.Instantiate(endGameText, new Vector3(-8.2f, 7, 2), Quaternion.identity, GameObject.FindGameObjectWithTag("Canvas").transform);
         winText.GetComponent<Text>().text = "Great Score!";
+
+        yield return new WaitForSeconds(2);
+        FindObjectOfType<AudioManager>().Play("WinnerBGM");
+    }
+
+    IEnumerator DefaultEnd()
+    {
+        yield return new WaitForSeconds(2);
+        FindObjectOfType<AudioManager>().Play("GameEndBGM");
+
     }
 }

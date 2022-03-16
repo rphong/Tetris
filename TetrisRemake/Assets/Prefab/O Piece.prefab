@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationPt: {x: 0.5, y: 0.5, z: 0}
   fallTime: 1
-  DAS: 0.5
+  DAS: 0.3
   ARR: 0.1
 --- !u!1 &6343905985178154982
 GameObject:

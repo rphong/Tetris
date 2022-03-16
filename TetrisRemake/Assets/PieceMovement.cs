@@ -9,7 +9,7 @@ public class PieceMovement : MonoBehaviour
     private float prevTimeY;
     private float prevTimeX;
     private float prevTimeARR;
-    public float fallTime = 1f;
+    private float fallTime = 1f;
     public float DAS = .5f;
     public float ARR = 2f;
     public static int width = 10;
